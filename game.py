@@ -6,7 +6,7 @@ def convback(bit):
     if bit==0: return "dove"
     else: return "hawk"
 
-def game(rounds,player1,player2): #runs one game of two specific players with a set number of rounds
+def game(rounds,player1,player2,matrix): #runs one game of two specific players with a set number of rounds
     moves1 = []
     moves2 = []
     score1 = 0
@@ -20,7 +20,7 @@ def game(rounds,player1,player2): #runs one game of two specific players with a 
         moves2.append(choice2)
     return (score1, score2) 
 
-def full_game(players,rounds,retries): #runs whole tourney
+def full_game(players,rounds,retries,matrix): #runs whole tourney
     length = len(players)
     scores = [ 0 ]*length
     table = [[0 for i in range(length)] for j in range(length)]
@@ -31,7 +31,7 @@ def full_game(players,rounds,retries): #runs whole tourney
             s1 = 0
             s2 = 0
             for times in range(retries):
-                 s = game(rounds, players[i], players[j])
+                 s = game(rounds, players[i], players[j],matrix)
                  s1 += s[0]
                  s2 += s[1]
             scores[i] += s1/retries
