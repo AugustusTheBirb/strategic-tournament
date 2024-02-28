@@ -1,9 +1,9 @@
 # Strategic Tournament
 A simple program for running tournaments of different agents for 2 player non-sequential strategic games with finite actions.
 The game setup here is Hawk-Dove, in it the players receive payoffs according to the following payoff matrix:
- Dove  Hawk
- Dove (5,5)  (2,7)
- Hawk (7,2)  (0,0)
+Dove  Hawk
+Dove (5,5)  (2,7)
+Hawk (7,2)  (0,0)
 
 ## INTRO - what is this game 
 Where the number pairs show the payoffs for each action pair (left player, top player) - the amount of "coins" your strategy gains for that outcome.
@@ -14,11 +14,10 @@ The idea behind this game is that two animals are competing over some shared res
 If they both chose to fight, the cost of the resulting fight is greater than the value of the resource, if one fights and one shares, the one who shares will end up getting a smaller share of the resource, a lower payoff. 
 If they both share they’ll get an equal share of the resource.
 
- | Hawk | Dove
---- | --- | ---
-Hawk | (V-C)/2;(V-C)/2 | V;0
---- | --- | ---
-Dove | 0;V | 0;0
+|  | Hawk | Dove |
+| --- | --- | --- |
+| Hawk | (V-C)/2;(V-C)/2 | V;0 |
+| Dove | 0;V | 0;0 |
 
 Its easier to understand the game from this matrix (which is equivalent in preferences to the one we use in this tournament just shifted a bit so that the values are positive), V is the value of the resource, C is the cost of a fight, C>V>0
 
