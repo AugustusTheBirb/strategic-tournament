@@ -15,3 +15,8 @@ def copycat(mymoves,opmoves): #copies opponents last move
     if (len(mymoves)==0): return "dove"
     if (opmoves[len(opmoves)-1]=="hawk"): return "hawk"
     else: return "dove"
+
+def critic(mymoves,opmoves): #reverses opponents last move
+    if (len(mymoves)==0): return "dove"
+    if (opmoves[len(opmoves)-1]=="hawk"): return "dove"
+    else: return "hawk"
