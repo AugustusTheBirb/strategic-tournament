@@ -1,9 +1,6 @@
 # Strategic Tournament
 A simple program for running tournaments of different agents for 2 player non-sequential strategic games with finite actions.
 The game setup here is Hawk-Dove, in it the players receive payoffs according to the following payoff matrix:
-Dove  Hawk
-Dove (5,5)  (2,7)
-Hawk (7,2)  (0,0)
 |  | Hawk | Dove |
 | --- | --- | --- |
 | **Hawk** | 5;5 | 2;7 |
