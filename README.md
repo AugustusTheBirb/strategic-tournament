@@ -4,6 +4,10 @@ The game setup here is Hawk-Dove, in it the players receive payoffs according to
 Dove  Hawk
 Dove (5,5)  (2,7)
 Hawk (7,2)  (0,0)
+|  | Hawk | Dove |
+| --- | --- | --- |
+| **Hawk** | 5;5 | 2;7 |
+| **Dove** | 7;2 | 0;0 
 
 ## INTRO - what is this game 
 Where the number pairs show the payoffs for each action pair (left player, top player) - the amount of "coins" your strategy gains for that outcome.
@@ -16,8 +20,8 @@ If they both share they’ll get an equal share of the resource.
 
 |  | Hawk | Dove |
 | --- | --- | --- |
-| Hawk | (V-C)/2;(V-C)/2 | V;0 |
-| Dove | 0;V | 0;0 |
+| **Hawk** | (V-C)/2;(V-C)/2 | V;0 |
+| **Dove** | 0;V | 0;0 |
 
 Its easier to understand the game from this matrix (which is equivalent in preferences to the one we use in this tournament just shifted a bit so that the values are positive), V is the value of the resource, C is the cost of a fight, C>V>0
 
