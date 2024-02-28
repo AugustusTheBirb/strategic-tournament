@@ -1,10 +1,10 @@
 # Strategic Tournament
 A simple program for running tournaments of different agents for 2 player non-sequential strategic games with finite actions.
 The game setup here is Hawk-Dove, in it the players receive payoffs according to the following payoff matrix:
-|  | Hawk | Dove |
+|  | Dove | Hawk |
 | --- | --- | --- |
-| **Hawk** | 5;5 | 2;7 |
-| **Dove** | 7;2 | 0;0 
+| **Dove** | 5;5 | 2;7 |
+| **Hawk** | 7;2 | 0;0 
 
 ## INTRO - what is this game 
 Where the number pairs show the payoffs for each action pair (left player, top player) - the amount of "coins" your strategy gains for that outcome.
