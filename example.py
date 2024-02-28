@@ -8,4 +8,4 @@ retries = 100 #the retries are so that non-deterministic strategies's payoffs ge
 matrix  = [[(5,5),(2,7)],
           [(7,2),(0,0)]]
 
-full_game(players,rounds,retries)
+full_game(players,rounds,retries,matrix)
