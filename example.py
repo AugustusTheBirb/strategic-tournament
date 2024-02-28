@@ -1,7 +1,7 @@
 import game
 import strategies
 
-players = [allDove,allHawk,rando,copycat,critic] #add the strategies you want to play in the tournament to this list
+players = [str.allDove,str.allHawk,str.rando,str.copycat,str.critic] #add the strategies you want to play in the tournament to this list
 
 rounds = 100 #numbers of rounds in one game
 retries = 100 #the retries are so that non-deterministic strategies's payoffs get averaged out
