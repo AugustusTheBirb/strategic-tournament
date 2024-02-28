@@ -18,7 +18,7 @@ If they both share they’ll get an equal share of the resource.
 |  | Hawk | Dove |
 | --- | --- | --- |
 | **Hawk** | (V-C)/2;(V-C)/2 | V;0 |
-| **Dove** | 0;V | 0;0 |
+| **Dove** | 0;V | V/2;V/2 |
 
 Its easier to understand the game from this matrix (which is equivalent in preferences to the one we use in this tournament just shifted a bit so that the values are positive), V is the value of the resource, C is the cost of a fight, C>V>0
 
