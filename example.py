@@ -1,5 +1,5 @@
 import game
-import strategies
+import strategies as str
 
 players = [str.allDove,str.allHawk,str.rando,str.copycat,str.critic] #add the strategies you want to play in the tournament to this list
 
@@ -8,4 +8,4 @@ retries = 100 #the retries are so that non-deterministic strategies's payoffs ge
 matrix  = [[(5,5),(2,7)],
           [(7,2),(0,0)]]
 
-full_game(players,rounds,retries,matrix)
+game.full_game(players,rounds,retries,matrix)

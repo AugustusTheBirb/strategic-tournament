@@ -36,8 +36,8 @@ def full_game(players,rounds,retries,matrix): #runs whole tourney
                  s2 += s[1]
             scores[i] += s1/retries
             if(i!=j):scores[j] += s2/retries
-            table[i][j] = (s1/retries, f'{players[i].__name__} earned against {players[j].__name__}')
-            table[j][i] = (s2/retries, f'{players[j].__name__} earned against {players[i].__name__}')
+            table[i][j] = (s1/retries, f'{players[i].__name__} vs {players[j].__name__}')
+            table[j][i] = (s2/retries, f'{players[j].__name__} vs {players[i].__name__}')
     scores = list(a/(length) for a in scores)
     final = []
     for p in range(length):
