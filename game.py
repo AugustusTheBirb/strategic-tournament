@@ -1,3 +1,5 @@
+from openpyxl import Workbook
+
 def conv(str):
     if(str =="dove"): return 0
     else: return 1
@@ -24,8 +26,16 @@ def full_game(players,rounds,retries,matrix): #runs whole tourney
     length = len(players)
     scores = [ 0 ]*length
     table = [[0 for i in range(length)] for j in range(length)]
-    # for i in range(length):
-    #     table[i][i] = "O"
+
+
+    # Initiating excel sheet
+    wb = Workbook()
+    ws = wb.active
+    for i in range(length):
+        ws.cell(row=1, column=i+2).value = players[i].__name__
+        ws.cell(row=i+2, column=1).value = players[i].__name__
+
+
     for i in range(length):
         for j in range(i,length):
             s1 = 0
@@ -37,7 +47,11 @@ def full_game(players,rounds,retries,matrix): #runs whole tourney
             scores[i] += s1/retries
             if(i!=j):scores[j] += s2/retries
             table[i][j] = (s1/retries, f'{players[i].__name__} vs {players[j].__name__}')
+            ws.cell(row=j+2, column=i+2).value = s1/retries
             table[j][i] = (s2/retries, f'{players[j].__name__} vs {players[i].__name__}')
+            ws.cell(row=i+2, column=j+2).value = s2/retries
+    
+
     scores = list(a/(length) for a in scores)
     final = []
     for p in range(length):
@@ -47,3 +61,5 @@ def full_game(players,rounds,retries,matrix): #runs whole tourney
         print(f'{final[i][0]} earned {final[i][1]}')
     for j in table:
         print(j) 
+    
+    wb.save("results.xlsx")
