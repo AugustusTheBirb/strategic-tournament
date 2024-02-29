@@ -42,3 +42,15 @@ def rebel(mymoves,opmoves): #uses the most popular move
     
     if(hawk_count > len(opmoves) / 2): return "dove"
     else: return "hawk"
+
+def pushover(mymoves,opmoves): #always hawk unless last 3 opponents were hawks
+    for i in range(min(3,len(opmoves))):
+        if(opmoves[len(opmoves)-1-i] == "dove"): return "dove"
+
+    return "hawk"
+
+def guardian(mymoves,opmoves): #always hawk unless last 3 opponents were hawks
+    for i in range(min(3,len(opmoves))):
+        if(opmoves[len(opmoves)-1-i] == "hawk"): return "hawk"
+
+    return "dove"     
