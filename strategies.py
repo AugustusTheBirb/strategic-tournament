@@ -95,3 +95,74 @@ def alzheimer_conformist(mymoves,opmoves): #uses the most popular move in the la
 
     if(hawk_count >= 3): return "hawk"
     else: return "dove"
+
+def beholder(mymoves,opmoves): #tries to predict the strategy | Lukas + (join in)
+    strategy = [0] * 12
+    # 0 - rando
+    # 1 - allDove
+    # 2 - allHawk
+    # 3 - copycat
+    # 4 - conformist
+    # 5 - critic
+    # 6 - rebel
+    # 7 - pushover
+    # 8 - predetor
+    # 9 - believer
+    # 10 - alzheimer_conformist
+    # 11 - beholder
+
+    for bird in opmoves:
+        if(bird == "dove"): 
+            strategy[1] += 1
+            strategy[2] = -2147483647
+        if(bird == "hawk"): 
+            strategy[1] = -2147483647
+            strategy[2] += 1
+
+    best = 0
+    for i in range(12):
+        if(strategy[best] < strategy[i]):
+            best = i;
+    
+    match best:
+        case 0:
+            return "hawk"
+        case 1:
+            return "hawk"
+        case 2:
+            return "dove"
+        case 3:
+            #unfinished
+            return "dove"
+        case 4:
+            #unfinished
+            return "dove"
+        case 5:
+            #unfinished
+            return "dove"
+        case 6:
+            #unfinished
+            return "dove"
+        case 7:
+            #unfinished
+            return "dove"
+        case 8:
+            #unfinished
+            return "dove"
+        case 9:
+            #unfinished
+            return "dove"
+        case 10:
+            #unfinished
+            return "dove"
+        case 8:
+            #unfinished
+            return "dove"
+
+
+
+
+
+
+
+        
