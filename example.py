@@ -2,7 +2,7 @@ import game
 import strategies as str
 
 def test(player,length): #added test function so you can see how a strategy performs against all possible games of length k,for testing purposes
-    #create binary numbers upto 2**len
+    #this does print out 3*2**len lines so id advise against setting length to more than 6
     a = [bin(x)[2:].zfill(length) for x in range(2**length)]
     b = []
     matrix = [[(5,5),(2,7)],[(7,2),(0,0)]]
