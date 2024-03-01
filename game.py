@@ -1,71 +1,76 @@
 from openpyxl import Workbook
 
+
 def conv(str):
-    if(str =="dove"): return 0
-    else: return 1
+    if (str == "dove"):
+        return 0
+    else:
+        return 1
+
 
 def convback(bit):
-    if bit==0: return "dove"
-    else: return "hawk"
+    if bit == 0:
+        return "dove"
+    else:
+        return "hawk"
 
-def game(rounds,player1,player2,matrix): #runs one game of two specific players with a set number of rounds
+
+def game(rounds, player1, player2, matrix):  # runs one game of two specific players with a set number of rounds
     moves1 = []
     moves2 = []
     score1 = 0
     score2 = 0
     for i in range(rounds):
-        choice1 = player1(moves1,moves2)
-        choice2 = player2(moves2,moves1)
+        choice1 = player1(moves1, moves2)
+        choice2 = player2(moves2, moves1)
         score1 += matrix[conv(choice2)][conv(choice1)][1]
         score2 += matrix[conv(choice2)][conv(choice1)][0]
         moves1.append(choice1)
         moves2.append(choice2)
-    return (score1, score2) 
+    return (score1, score2)
 
-def full_game(players,rounds,retries,matrix): #runs whole tourney
+
+def full_game(players, rounds, retries, matrix):  # runs whole tourney
     length = len(players)
-    scores = [ 0 ]*length
+    scores = [0] * length
     table = [[0 for i in range(length)] for j in range(length)]
-
 
     # Initiating excel sheet
     wb = Workbook()
     ws = wb.active
     ws.cell(row=1, column=1).value = "Average"
     for i in range(length):
-        ws.cell(row=2, column=i+2).value = players[i].__name__
-        ws.cell(row=i+3, column=1).value = players[i].__name__
-
+        ws.cell(row=2, column=i + 2).value = players[i].__name__
+        ws.cell(row=i + 3, column=1).value = players[i].__name__
 
     for i in range(length):
-        for j in range(i,length):
+        for j in range(i, length):
             s1 = 0
             s2 = 0
             for times in range(retries):
-                 s = game(rounds, players[i], players[j],matrix)
-                 s1 += s[0]
-                 s2 += s[1]
-            scores[i] += s1/retries
-            if(i!=j):scores[j] += s2/retries
-            table[i][j] = (s1/retries, f'{players[i].__name__} vs {players[j].__name__}')
-            ws.cell(row=j+3, column=i+2).value = s1/retries
-            table[j][i] = (s2/retries, f'{players[j].__name__} vs {players[i].__name__}')
-            ws.cell(row=i+3, column=j+2).value = s2/retries
-    
+                s = game(rounds, players[i], players[j], matrix)
+                s1 += s[0]
+                s2 += s[1]
+            scores[i] += s1 / retries
+            if (i != j): scores[j] += s2 / retries
+            table[i][j] = (s1 / retries, f'{players[i].__name__} vs {players[j].__name__}')
+            ws.cell(row=j + 3, column=i + 2).value = s1 / retries
+            table[j][i] = (s2 / retries, f'{players[j].__name__} vs {players[i].__name__}')
+            ws.cell(row=i + 3, column=j + 2).value = s2 / retries
 
-    scores = list(a/(length) for a in scores)
+    scores = list(a / (length) for a in scores)
     final = []
-    
-    for p in range(length):
-        final.append((players[p].__name__,round(scores[p],2)))
-    for i in range(length):
-        ws.cell(row=1, column=i+2).value = final[i][1]
 
-    final.sort(key=lambda a: a[1],reverse=True)
+    for p in range(length):
+        final.append((players[p].__name__, round(scores[p], 2)))
+    for i in range(length):
+        ws.cell(row=1, column=i + 2).value = final[i][1]
+
+    final.sort(key=lambda a: a[1], reverse=True)
 
     for i in range(length):
         print(f'{final[i][0]} earned {final[i][1]}')
     for j in table:
-        print(j) 
-    
+        print(j)
+
     wb.save("results.xlsx")
