@@ -65,7 +65,7 @@ players = [str.allDove,str.allHawk,str.rando,str.copycat,str.conformist,str.crit
 - **critic** - chooses opposite of opponents last move
 - **conformist** - chooses the move that is the most frequently played by the opponent
 - **rebel** - chooses the move that is the least frequently played by the opponent
-- **pushover** - chooses dove unless the last three moves of the opponent were hawk
-- **guardian** - chooses hawk unless the last three moves of the opponent were dove
+- **pushover** - chooses hawk unless the last three moves of the opponent were hawk
+- **predator** - chooses dove unless the last three moves of the opponent were dove
 - **alzheimer_conformist** - chooses the move that is the most popular among the opponents last five moves
 - **believer** - chooses the move that has historically yielded the most points
