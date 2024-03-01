@@ -43,17 +43,17 @@ def rebel(mymoves,opmoves): #uses the least popular move | Lukas
     if(hawk_count > len(opmoves) / 2): return "dove"
     else: return "hawk"
 
-def pushover(mymoves,opmoves): #always dove unless last 3 opponents moves were hawks | Lukas
+def pushover(mymoves,opmoves): #always hawk unless last 3 opponents moves were hawks | Lukas
     for i in range(min(3,len(opmoves))):
-        if(opmoves[len(opmoves)-1-i] == "dove"): return "dove"
+        if(opmoves[len(opmoves)-1-i] == "dove"): return "hawk"
+
+    return "dove"
+
+def predetor(mymoves,opmoves): #always dove unless last 3 opponents were doves | Lukas
+    for i in range(min(3,len(opmoves))):
+        if(opmoves[len(opmoves)-1-i] == "hawk"): return "dove"
 
     return "hawk"
-
-def guardian(mymoves,opmoves): #always hawk unless last 3 opponents were dove | Lukas
-    for i in range(min(3,len(opmoves))):
-        if(opmoves[len(opmoves)-1-i] == "hawk"): return "hawk"
-
-    return "dove"     
 
 def believer(my, op): #tiki praeitimi, renkasi ta move kuris anksciau geras jam buvo | Tomas
     matrix = [[(5,5),(2,7)],[(7,2),(0,0)]]
