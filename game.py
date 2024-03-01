@@ -31,9 +31,10 @@ def full_game(players,rounds,retries,matrix): #runs whole tourney
     # Initiating excel sheet
     wb = Workbook()
     ws = wb.active
+    ws.cell(row=1, column=1).value = "Average"
     for i in range(length):
-        ws.cell(row=1, column=i+2).value = players[i].__name__
-        ws.cell(row=i+2, column=1).value = players[i].__name__
+        ws.cell(row=2, column=i+2).value = players[i].__name__
+        ws.cell(row=i+3, column=1).value = players[i].__name__
 
 
     for i in range(length):
@@ -47,16 +48,21 @@ def full_game(players,rounds,retries,matrix): #runs whole tourney
             scores[i] += s1/retries
             if(i!=j):scores[j] += s2/retries
             table[i][j] = (s1/retries, f'{players[i].__name__} vs {players[j].__name__}')
-            ws.cell(row=j+2, column=i+2).value = s1/retries
+            ws.cell(row=j+3, column=i+2).value = s1/retries
             table[j][i] = (s2/retries, f'{players[j].__name__} vs {players[i].__name__}')
-            ws.cell(row=i+2, column=j+2).value = s2/retries
+            ws.cell(row=i+3, column=j+2).value = s2/retries
     
 
     scores = list(a/(length) for a in scores)
     final = []
+    
     for p in range(length):
         final.append((players[p].__name__,round(scores[p],2)))
+    for i in range(length):
+        ws.cell(row=1, column=i+2).value = final[i][1]
+
     final.sort(key=lambda a: a[1],reverse=True)
+
     for i in range(length):
         print(f'{final[i][0]} earned {final[i][1]}')
     for j in table:
