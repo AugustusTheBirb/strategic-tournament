@@ -49,7 +49,7 @@ def pushover(mymoves,opmoves): #always hawk unless last 3 opponents moves were h
 
     return "dove"
 
-def predetor(mymoves,opmoves): #always dove unless last 3 opponents were doves | Lukas
+def predator(mymoves,opmoves): #always dove unless last 3 opponents were doves | Lukas
     for i in range(min(3,len(opmoves))):
         if(opmoves[len(opmoves)-1-i] == "hawk"): return "dove"
 
