@@ -1,8 +1,8 @@
 from openpyxl import Workbook
 
 
-def conv(str):
-    if (str == "dove"):
+def conv(choice):
+    if choice == "dove":
         return 0
     else:
         return 1
@@ -51,25 +51,26 @@ def full_game(players, rounds, retries, matrix):  # runs whole tourney
                 s = game(rounds, players[i], players[j], matrix)
                 s1 += s[0]
                 s2 += s[1]
-            scores[i] += s1 / retries
-            if (i != j): scores[j] += s2 / retries
-            table[i][j] = (s1 / retries, f'{players[i].__name__} vs {players[j].__name__}')
-            ws.cell(row=j + 3, column=i + 2).value = s1 / retries
-            table[j][i] = (s2 / retries, f'{players[j].__name__} vs {players[i].__name__}')
-            ws.cell(row=i + 3, column=j + 2).value = s2 / retries
+            scores[i] += s1 / (retries * rounds)
+            if i != j:
+                scores[j] += s2 / (retries * rounds)
+            table[i][j] = (scores[i], f'{players[i].__name__} vs {players[j].__name__}')
+            ws.cell(row=j + 3, column=i + 2).value = scores[i]
+            table[j][i] = (scores[j], f'{players[j].__name__} vs {players[i].__name__}')
+            ws.cell(row=i + 3, column=j + 2).value = scores[j]
 
-    scores = list(a / (length) for a in scores)
+    scores = list(a / length for a in scores)
     final = []
 
     for p in range(length):
-        final.append((players[p].__name__, round(scores[p], 2)))
+        final.append((players[p].__name__, round(scores[p] / rounds, 5)))
     for i in range(length):
         ws.cell(row=1, column=i + 2).value = final[i][1]
 
     final.sort(key=lambda a: a[1], reverse=True)
 
     for i in range(length):
-        print(f'{final[i][0]} earned {final[i][1]}')
+        print(f'{final[i][0]} earned {final[i][1]} per round')
     for j in table:
         print(j)
 
