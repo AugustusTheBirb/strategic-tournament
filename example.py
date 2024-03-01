@@ -1,4 +1,5 @@
 import game
+import strategies
 import strategies as strat
 
 
@@ -24,15 +25,18 @@ def test(player,
         print(mypoints)
         print(" ")
 
+def __main__():
+    players = [strat.allDove, strat.allHawk, strat.rando, strat.copycat, strat.conformist, strat.critic, strat.rebel,
+               strat.pushover, strat.predator, strat.alzheimer_conformist, strat.believer,
+               strat.grudge, strat.tit_for_tattat, strat.prod, strat.intrusive_thought
+               ]  # add the strategies you want to play in the tournament to this list
 
-players = [strat.allDove, strat.allHawk, strat.rando, strat.copycat, strat.conformist, strat.critic, strat.rebel,
-           strat.pushover, strat.predator, strat.alzheimer_conformist, strat.believer,
-           strat.grudge, strat.tit_for_tattat, strat.prod
-           ]  # add the strategies you want to play in the tournament to this list
+    rounds = 100  # numbers of rounds in one game
+    retries = 100  # the retries are so that non-deterministic strategies' payoffs get averaged out
+    matrix = [[(5, 5), (2, 7)],
+              [(7, 2), (0, 0)]]
 
-rounds = 100  # numbers of rounds in one game
-retries = 100  # the retries are so that non-deterministic strategies' payoffs get averaged out
-matrix = [[(5, 5), (2, 7)],
-          [(7, 2), (0, 0)]]
+    game.full_game(players, rounds, retries, matrix)
 
-game.full_game(players, rounds, retries, matrix)
+
+__main__()

@@ -36,10 +36,7 @@ def allHawk(mymoves, opmoves):  # always hawk | Augustas
 def copycat(mymoves, opmoves):  # copies opponents last move | Vasaris
     if len(mymoves) == 0:
         return "dove"
-    if opmoves[-1] == "hawk":
-        return "hawk"
-    else:
-        return "dove"
+    return opmoves[-1]
 
 
 def conformist(mymoves, opmoves):  # uses the most popular move | Lukas
@@ -165,3 +162,12 @@ def tit_for_tattat(mymoves, opmoves):  # smacks back if it gets smacked twice in
     if "dove" not in opmoves[-2:]:
         return "hawk"
     return "dove"
+
+
+def intrusive_thought(mymoves, opmoves): # tit-for-tat but if it gets too quiet it will randomly punch for shits and giggles
+    if len(mymoves) == 0:
+        return "dove"
+    if len(opmoves)>3:
+        if "hawk" not in opmoves[-2:] and random.random() < 0.1:
+            return "hawk"
+    return opmoves[-1]
