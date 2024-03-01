@@ -1,5 +1,18 @@
 import random
+#helper functions for making strategies easier to understand
 
+def points(mymove,opmove): #returns your score for a given interaction
+    matrix = [[(5,5),(2,7)],[(7,2),(0,0)]]
+    d={'dove':0,'hawk':1}
+    return matrix[d[mymove]][d[opmove]][0]
+
+def hawks_in_last_k_opmoves(opmoves,k):
+    c = 0
+    for i in range(k):
+        if (opmoves[len(opmoves)-i-1]=="hawk"):c+=1
+    return c
+
+#strategies themselves
 def rando(mymoves,opmoves): #50/50 hawk/dove | Augustas
     a = random.random()
     if a>0.5:return "dove"
