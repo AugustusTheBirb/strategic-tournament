@@ -9,7 +9,7 @@ def test(player,length): #added test function so you can see how a strategy perf
     d={'dove':0,'hawk':1}
 
     for i in a:
-        b.append(list(convback(int(j)) for j in i))
+        b.append(list(game.convback(int(j)) for j in i))
     for game in b:
         mymoves = []
         mypoints = 0
