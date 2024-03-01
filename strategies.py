@@ -95,3 +95,17 @@ def alzheimer_conformist(mymoves,opmoves): #uses the most popular move in the la
 
     if(hawk_count >= 3): return "hawk"
     else: return "dove"
+
+def sore_loser(mymoves,opmoves): #if it has less points its opponent it goes hawk, else dove | Mykolas
+    myscore = 0
+    opscore = 0
+    for i in range(len(mymoves)):
+        myscore+=points(mymoves[i],opmoves[i])
+        opscore+=points(opmoves[i],mymoves[i])
+    if (opscore>myscore): return "hawk"
+    else: return "dove"
+
+def grudge(my, op): #plays dove until the opponent plays a hawk then keeps playing hawk | meow
+    if "hawk" in op:
+        return "hawk"
+    return "dove"
