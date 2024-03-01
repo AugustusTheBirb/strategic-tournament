@@ -11,16 +11,15 @@ def points(mymove, opmove):  # returns your score for a given interaction
 
 def hawks_in_last_k_opmoves(opmoves, k):
     c = 0
-    for i in range(k):
-        if opmoves[len(opmoves) - i - 1] == "hawk":
+    for i in opmoves[-k:]:
+        if i == "hawk":
             c += 1
     return c
 
 
 # strategies themselves
 def rando(mymoves, opmoves):  # 50/50 hawk/dove | Augustas
-    a = random.random()
-    if a > 0.5:
+    if random.random() > 0.5:
         return "dove"
     else:
         return "hawk"
@@ -37,7 +36,7 @@ def allHawk(mymoves, opmoves):  # always hawk | Augustas
 def copycat(mymoves, opmoves):  # copies opponents last move | Vasaris
     if len(mymoves) == 0:
         return "dove"
-    if opmoves[len(opmoves) - 1] == "hawk":
+    if opmoves[-1] == "hawk":
         return "hawk"
     else:
         return "dove"
@@ -61,7 +60,7 @@ def conformist(mymoves, opmoves):  # uses the most popular move | Lukas
 def critic(mymoves, opmoves):  # reverses opponents last move | Lukas
     if len(mymoves) == 0:
         return "dove"
-    if opmoves[len(opmoves) - 1] == "hawk":
+    if opmoves[-1] == "hawk":
         return "dove"
     else:
         return "hawk"
@@ -82,19 +81,23 @@ def rebel(mymoves, opmoves):  # uses the least popular move | Lukas
         return "hawk"
 
 
-def pushover(mymoves, opmoves):  # always hawk unless last 3 opponents moves were hawks | Lukas
-    for i in range(min(3, len(opmoves))):
-        if opmoves[len(opmoves) - 1 - i] == "dove":
-            return "hawk"
+def pushover(mymoves, opmoves):
+    if len(opmoves) < 3:
+        return "hawk"
+    if "dove" in opmoves[-3:]:
+        return "hawk"
     return "dove"
 
 
 def predator(mymoves, opmoves):  # always dove unless last 3 opponents were doves | Lukas
-    for i in range(min(3, len(opmoves))):
-        if opmoves[len(opmoves) - 1 - i] == "hawk":
-            return "dove"
-
+    if len(opmoves) < 2:
+        return "hawk"
+    if "hawk" in opmoves[-3:]:
+        return "dove"
     return "hawk"
+
+
+
 
 
 def believer(my, op):  # tiki praeitimi, renkasi ta move kuris anksciau geras jam buvo | Tomas
@@ -115,19 +118,14 @@ def believer(my, op):  # tiki praeitimi, renkasi ta move kuris anksciau geras ja
 
 
 def alzheimer_conformist(mymoves, opmoves):  # uses the most popular move in the last five moves | Mokslo gildija
-    if len(mymoves) == 0:
-        return "dove"
-    hawk_count = 0
-
     if len(opmoves) > 5:
+        hawk_count = 0
         for i in range(1, 6):
-            if opmoves[len(opmoves) - i] == "hawk":
+            if opmoves[- i] == "hawk":
                 hawk_count += 1
-
-    if hawk_count >= 3:
-        return "hawk"
-    else:
-        return "dove"
+        if hawk_count >= 3:
+            return "hawk"
+    return "dove"
 
 
 def sore_loser(mymoves, opmoves):  # if it has fewer points its opponent it goes hawk, else dove | Mykolas
@@ -142,28 +140,28 @@ def sore_loser(mymoves, opmoves):  # if it has fewer points its opponent it goes
         return "dove"
 
 
-def grudge(my, op):  # plays dove until the opponent plays a hawk then keeps playing hawk | meow
-    if "hawk" in op:
+def grudge(mymoves, opmoves):  # plays dove until the opponent plays a hawk then keeps playing hawk | meow
+    if "hawk" in opmoves:
         return "hawk"
     return "dove"
 
 
-def prod(my, op):  # play hawk, if no hawks play hawk every third turn else tit-for-tat | meow
-    if len(my) == 0:
+def prod(mymoves, opmoves):  # play hawk, if no hawks play hawk every third turn else tit-for-tat | meow
+    if len(mymoves) == 0:
         return "hawk"
-    if len(my) < 3:
+    if len(mymoves) < 3:
         return "dove"
-    assert len(op) > 2  # yeah, fuck you im assertin
-    if op[-1] == "hawk":
+    assert len(opmoves) > 2  # yeah, fuck you im assertin
+    if opmoves[-1] == "hawk":
         return "hawk"
-    if "hawk" not in op[:3] and len(my) % 3 == 0:
+    if "hawk" not in opmoves[:3] and len(mymoves) % 3 == 0:
         return "hawk"
     return "dove"
 
 
-def tit_for_tattat(my, op):  # smacks back if it gets smacked twice in a row | meow
-    if len(op) < 2:
+def tit_for_tattat(mymoves, opmoves):  # smacks back if it gets smacked twice in a row | meow
+    if len(opmoves) < 2:
         return "dove"
-    if "dove" not in op[-2:]:
+    if "dove" not in opmoves[-2:]:
         return "hawk"
     return "dove"

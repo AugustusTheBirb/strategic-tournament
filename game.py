@@ -18,16 +18,15 @@ def convback(bit):
 def game(rounds, player1, player2, matrix):  # runs one game of two specific players with a set number of rounds
     moves1 = []
     moves2 = []
-    score1 = 0
-    score2 = 0
+    scores = [0, 0]
     for i in range(rounds):
         choice1 = player1(moves1, moves2)
         choice2 = player2(moves2, moves1)
-        score1 += matrix[conv(choice2)][conv(choice1)][1]
-        score2 += matrix[conv(choice2)][conv(choice1)][0]
+        scores[0] += matrix[conv(choice2)][conv(choice1)][1]
+        scores[1] += matrix[conv(choice2)][conv(choice1)][0]
         moves1.append(choice1)
         moves2.append(choice2)
-    return (score1, score2)
+    return scores
 
 
 def full_game(players, rounds, retries, matrix):  # runs whole tourney
