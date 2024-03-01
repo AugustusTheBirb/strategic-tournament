@@ -1,4 +1,6 @@
 # Strategic Tournament
+If you want to contribute to this project create a branch and then create a pull request.
+
 A simple program for running tournaments of different agents for 2 player non-sequential strategic games with finite actions.
 The game setup here is Hawk-Dove, in it the players receive payoffs according to the following payoff matrix:
 |  | Dove | Hawk |
@@ -53,5 +55,17 @@ On the first move both are empty.
 > [!NOTE]
 > If you don't know how to implement your strategy, you can describe it in text and send it to me, I’ll implement it to the best of my ability.
 
-If you want to contribute to my project create a branch and then create a pull request.
+### STRATEGIES CREATED SO FAR
+players = [str.allDove,str.allHawk,str.rando,str.copycat,str.conformist,str.critic,str.rebel,str.bruh,str.pushover] #add the strategies you want to play in the tournament to this list
 
+- **allDove** - allways chooses dove
+- **allHawk** - allways chooses hawk
+- **rando** - randomly chooses hawk/dove with 50/50 odds
+- **copycat** - copies opponents last move
+- **critic** - chooses opposite of opponents last move
+- **conformist** - chooses the move that is the most frequently played by the opponent
+- **rebel** - chooses the move that is the least frequently played by the opponent
+- **pushover** - chooses dove unless the last three moves of the opponent were hawk
+- **guardian** - chooses hawk unless the last three moves of the opponent were dove
+- **alzheimer_conformist** - chooses the move that is the most popular among the opponents last five moves
+- **believer** - chooses the move that has historically yielded the most points
