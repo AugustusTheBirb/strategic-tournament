@@ -51,19 +51,21 @@ def full_game(players, rounds, retries, matrix):  # runs whole tourney
                 s = game(rounds, players[i], players[j], matrix)
                 s1 += s[0]
                 s2 += s[1]
-            scores[i] += s1 / (retries * rounds)
+            score1 = s1 / (retries * rounds)
+            score2 = s2 / (retries * rounds)
+            scores[i] += score1
             if i != j:
-                scores[j] += s2 / (retries * rounds)
-            table[i][j] = (scores[i], f'{players[i].__name__} vs {players[j].__name__}')
-            ws.cell(row=j + 3, column=i + 2).value = scores[i]
-            table[j][i] = (scores[j], f'{players[j].__name__} vs {players[i].__name__}')
-            ws.cell(row=i + 3, column=j + 2).value = scores[j]
+                scores[j] += score2
+            table[i][j] = (score1, f'{players[i].__name__} vs {players[j].__name__}')
+            ws.cell(row=j + 3, column=i + 2).value = score1
+            table[j][i] = (score2, f'{players[j].__name__} vs {players[i].__name__}')
+            ws.cell(row=i + 3, column=j + 2).value = score2
 
     scores = list(a / length for a in scores)
     final = []
 
     for p in range(length):
-        final.append((players[p].__name__, round(scores[p] / rounds, 5)))
+        final.append((players[p].__name__, round(scores[p], 5)))
     for i in range(length):
         ws.cell(row=1, column=i + 2).value = final[i][1]
 
