@@ -162,7 +162,7 @@ class detStrat:
         return "dove"
     
     @staticmethod
-    def smartHawk(mymoves,opmoves): #a smart hawk, if the opponent chooses hawk >7 times in the first 10 moves, he becomes all dove, else stays all hawke
+    def smartHawk(mymoves,opmoves): #a smart hawk, if the opponent chooses hawk >7 times in the first 10 moves, he becomes all dove, else stays all hawk | Vasaris
         if(len(mymoves)<10):return "hawk"
         count = 0
         for i in range(10):
