@@ -77,6 +77,7 @@ On the first move both are empty.
 - **grudge** - plays dove until the opponent plays hawk and then plays only hawk
 - **tit-for-tattat** - plays hawk if and only if the opponent played hawk for the last two turns
 - **prod** - play hawk, if no hawks play hawk every third turn else tit-for-tat
+- **smartHawk** - play hawk, if in the first 10 moves the opponent plays >7 hawks, becomes allDove, else stays allHawk
 
 
 ***Non-Deterministic Algorithms***
