@@ -21,16 +21,19 @@ def game(rounds, player1, player2, matrix):  # runs one game of two specific pla
     moves1 = []
     moves2 = []
     scores = [0, 0]
-    for i in range(rounds):
-        if player1[0] == "$":
-            choice1 = getattr(randStrat, player1[1:])(randStrat, moves1, moves2)
-        else:
-            choice1 = getattr(detStrat, player1)(detStrat, moves1, moves2)
+    if player1[0] == "$":
+        choice_oracle1 = getattr(randStrat, player1[1:])
+    else:
+        choice_oracle1 = getattr(detStrat, player1)
 
-        if player2[0] == "$":
-            choice2 = getattr(randStrat, player2[1:])(randStrat, moves1, moves2)
-        else:
-            choice2 = getattr(detStrat, player2)(detStrat, moves1, moves2)
+    if player2[0] == "$":
+        choice_oracle2 = getattr(randStrat, player2[1:])
+    else:
+        choice_oracle2 = getattr(detStrat, player2)
+
+    for i in range(rounds):
+        choice1 = choice_oracle1(moves1, moves2)
+        choice2 = choice_oracle2(moves2, moves1)
         scores[0] += matrix[conv(choice2)][conv(choice1)][1]
         scores[1] += matrix[conv(choice2)][conv(choice1)][0]
         moves1.append(choice1)
@@ -84,7 +87,7 @@ def full_game(players, rounds, retries, matrix):  # runs whole tourney
             ws.cell(row=j + 3, column=i + 2).value = score1
             table[j][i] = (score2, f'{player1} vs {player2}')
             ws.cell(row=i + 3, column=j + 2).value = score2
-            print(f"Game {player1} vs {player2} completed at {time.time()-starting} with score {score1}:{score2}")
+            # print(f"Game {player1} vs {player2} completed at {time.time()-starting} with score {score1}:{score2}")
 
 
     scores = list(a / length for a in scores)
