@@ -60,14 +60,12 @@ On the first move both are empty.
 > [!NOTE]
 > If you don't know how to implement your strategy, you can describe it in text and send it to me, I’ll implement it to the best of my ability.
 
-
 ### STRATEGIES CREATED SO FAR
 
-players = [str.allDove,str.allHawk,str.rando,str.copycat,str.conformist,str.critic,str.rebel,str.bruh,str.pushover] #add the strategies you want to play in the tournament to this list
+***Deterministic Algorithms***
 
 - **allDove** - allways chooses dove
 - **allHawk** - allways chooses hawk
-- **rando** - randomly chooses hawk/dove with 50/50 odds
 - **copycat** - copies opponents last move
 - **critic** - chooses opposite of opponents last move
 - **conformist** - chooses the move that is the most frequently played by the opponent
@@ -75,7 +73,16 @@ players = [str.allDove,str.allHawk,str.rando,str.copycat,str.conformist,str.crit
 - **pushover** - chooses hawk unless the last three moves of the opponent were hawk
 - **predator** - chooses dove unless the last three moves of the opponent were dove
 - **alzheimer_conformist** - chooses the move that is the most popular among the opponents last five moves
+- **sore loser** - if it has fewer points its opponent it goes hawk, else dove
+- **grudge** - plays dove until the opponent plays hawk and then plays only hawk
+- **tit-for-tattat** - plays hawk if and only if the opponent played hawk for the last two turns
+- **prod** - play hawk, if no hawks play hawk every third turn else tit-for-tat
+
+
+***Non-Deterministic Algorithms***
+- **rando** - randomly chooses hawk/dove with 50/50 odds
 - **believer** - chooses the move that has historically yielded the most points
+- **intrusive thought** - will play tit-for-tat but randomly lash out if the enemy is too nice
 
 ## BASIC USAGE
 
