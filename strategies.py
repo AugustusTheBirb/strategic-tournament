@@ -201,3 +201,29 @@ class detStrat:
         if len(mymove) % 2 == 0:
             return "hawk"
         return "dove"
+    
+    @staticmethod
+    def beholder(mymoves,opmoves):
+        teststrip = ['dove', 'dove', 'hawk', 'hawk', 'hawk', 'hawk', 'hawk', 'hawk', 'hawk', 'hawk', 'dove', 'dove']
+        dict = {'dovedovedovedovedovedovedovedovedovedovedovedove': 'allDove',
+        'hawkhawkhawkhawkhawkhawkhawkhawkhawkhawkhawkhawk': 'allHawk',
+        'dovedovedovedovedovedovehawkhawkhawkhawkhawkhawk': 'alzheimer_conformist',
+        'dovedovedovedovedovehawkhawkhawkhawkhawkhawkhawk': 'conformist',
+        'dovedovedovehawkhawkhawkhawkhawkhawkhawkhawkdove': 'copycat',
+        'dovehawkhawkdovedovedovedovedovedovedovedovehawk': 'critic',
+        'dovedovedovehawkhawkhawkhawkhawkhawkhawkhawkhawk': 'grudge',
+        'hawkhawkhawkdovedovedovedovedovedovedovedovedove': 'predator',
+        'hawkdovedovehawkhawkhawkhawkhawkhawkhawkhawkdove': 'prod',
+        'hawkhawkhawkhawkhawkdovedovedovedovedovedovehawk': 'pushover',
+        'dovehawkhawkhawkhawkdovedovedovedovedovedovedove': 'rebel',
+        'hawkhawkhawkhawkhawkhawkhawkhawkhawkhawkdovedove': 'smartHawk',
+        'dovedovedovedovehawkhawkhawkhawkhawkhawkhawkdove': 'tit_for_tattat'}
+        if(len(mymoves)<len(teststrip)):return teststrip[len(mymoves)]
+        c = ""
+        for i in opmoves[0:12]:
+            c+=i
+        if (dict.get(c,0)==0): return "hawk"
+        o = getattr(detStrat, dict.get(c))
+        if (o(opmoves,mymoves)=="hawk"):return"dove"
+        if (o(opmoves,mymoves)=="dove"):return"hawk"
+        
