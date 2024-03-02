@@ -85,13 +85,13 @@ def predator(mymoves, opmoves):  # always dove unless last 3 opponents were dove
     return "hawk"
 
 
-def believer(my, op):  # tiki praeitimi, renkasi ta move kuris anksciau geras jam buvo | Tomas
+def believer(mymoves, opmoves):  # tiki praeitimi, renkasi ta move kuris anksciau geras jam buvo | Tomas
     matrix = [[(5, 5), (2, 7)], [(7, 2), (0, 0)]]
     d = {'dove': 0, 'hawk': 1}
-    if len(my) < 10:
+    if len(mymoves) < 10:
         return 'dove' if random.random() < 0.5 else 'hawk'
     gains = [0, 0]
-    for i in zip(my, op):
+    for i in zip(mymoves, opmoves):
         if d[i[0]]:
             gains[1] += matrix[d[i[0]]][d[i[1]]][0]
         else:
