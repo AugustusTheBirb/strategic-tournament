@@ -1,6 +1,6 @@
 import game
-import strategies
-import strategies as strat
+from strategies import detStrat, randStrat
+import time
 
 
 def test(player,
@@ -15,21 +15,30 @@ def test(player,
     for i in a:
         b.append(list(game.convback(int(j)) for j in i))
     for gameBoard in b:
-        mymoves = []
-        mypoints = 0
+        moves = []
+        points = 0
         for i in range(length):
-            mypoints += reward_matrix[d[player(mymoves, gameBoard[0:i])]][d[gameBoard[i]]][0]
-            mymoves.append(player(mymoves, gameBoard[0:i]))
+            points += reward_matrix[d[player(moves, gameBoard[0:i])]][d[gameBoard[i]]][0]
+            moves.append(player(moves, gameBoard[0:i]))
         print(gameBoard)
-        print(mymoves, end=" ")
-        print(mypoints)
+        print(moves, end=" ")
+        print(points)
         print(" ")
 
+
 def __main__():
-    players = [strat.allDove, strat.allHawk, strat.rando, strat.copycat, strat.conformist, strat.critic, strat.rebel,
-               strat.pushover, strat.predator, strat.alzheimer_conformist, strat.believer,
-               strat.grudge, strat.tit_for_tattat, strat.prod, strat.intrusive_thought
-               ]  # add the strategies you want to play in the tournament to this list
+    time_start = time.time()
+    rands = ["$" + attribute for attribute in dir(randStrat) if callable(getattr(randStrat, attribute))
+             and attribute.startswith('__') is False]
+    players = [attribute for attribute in dir(detStrat) if callable(getattr(detStrat, attribute))
+               and attribute.startswith('__') is False] + rands
+
+    # add the strategies you want to play in the tournament to this list, top one runs every single method
+    # players = [strat.allDove, strat.allHawk, strat.rando, strat.copycat, strat.conformist, strat.critic, strat.rebel,
+    #                strat.pushover, strat.predator, strat.alzheimer_conformist, strat.believer,
+    #                strat.grudge, strat.tit_for_tattat, strat.prod, strat.intrusive_thought
+    #                ]
+    print(players)
 
     rounds = 100  # numbers of rounds in one game
     retries = 100  # the retries are so that non-deterministic strategies' payoffs get averaged out
@@ -37,6 +46,7 @@ def __main__():
               [(7, 2), (0, 0)]]
 
     game.full_game(players, rounds, retries, matrix)
+    print(time.time() - time_start, "seconds")
 
 
 __main__()
