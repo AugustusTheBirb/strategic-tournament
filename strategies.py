@@ -85,9 +85,6 @@ def predator(mymoves, opmoves):  # always dove unless last 3 opponents were dove
     return "hawk"
 
 
-
-
-
 def believer(my, op):  # tiki praeitimi, renkasi ta move kuris anksciau geras jam buvo | Tomas
     matrix = [[(5, 5), (2, 7)], [(7, 2), (0, 0)]]
     d = {'dove': 0, 'hawk': 1}
