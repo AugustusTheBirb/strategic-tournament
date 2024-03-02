@@ -41,9 +41,10 @@ def game(rounds, player1, player2, matrix):  # runs one game of two specific pla
     return scores
 
 
-def full_game(players, rounds, retries, matrix):  # runs whole tourney
-    starting = time.time()
-    print(f"starting game at {starting}")
+def full_game(players, rounds, retries, matrix, console):  # runs whole tourney
+    if console:
+        starting = time.time()
+        print(f"starting game at {starting}")
     length = len(players)
     scores = [0] * length
     table = [[0 for i in range(length)] for j in range(length)]
@@ -97,8 +98,8 @@ def full_game(players, rounds, retries, matrix):  # runs whole tourney
         ws.cell(row=1, column=i + 2).value = final[i][1]
 
     final.sort(key=lambda a: a[1], reverse=True)
-
-    for i in range(length):
-        print(f'{final[i][0]} earned {final[i][1]} per round')
+    if console:
+        for i in range(length):
+            print(f'{final[i][0]} earned {final[i][1]} per round')
 
     wb.save("results.xlsx")
