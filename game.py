@@ -1,5 +1,6 @@
 from openpyxl import Workbook
 from strategies import detStrat,randStrat
+import time
 
 
 def conv(choice):
@@ -38,6 +39,8 @@ def game(rounds, player1, player2, matrix):  # runs one game of two specific pla
 
 
 def full_game(players, rounds, retries, matrix):  # runs whole tourney
+    starting = time.time()
+    print(f"starting game at {starting}")
     length = len(players)
     scores = [0] * length
     table = [[0 for i in range(length)] for j in range(length)]
@@ -54,23 +57,24 @@ def full_game(players, rounds, retries, matrix):  # runs whole tourney
         for j in range(i, length):
             s1 = 0
             s2 = 0
-            rand = False
-            player1, player2 = players[i],players[j]
+            rand1, rand2 = False,False
+            player1, player2 = players[i], players[j]
             if player1[0] == "$":
-                rand = True
+                rand1 = True
                 player1 = player1[1:]
             if player2[0] == "$":
-                rand = True
+                rand2 = True
                 player2 = player2[1:]
-            if rand:
+            if rand1 or rand2:
                 for times in range(retries):
                     s = game(rounds, players[i], players[j], matrix)
                     s1 += s[0]
                     s2 += s[1]
             else:
                 s = game(rounds, players[i], players[j], matrix)
-                s1 += s[0]
-                s2 += s[1]
+                s1 += s[0] * retries
+                s2 += s[1] * retries
+
             score1 = s1 / (retries * rounds)
             score2 = s2 / (retries * rounds)
             scores[i] += score1
@@ -80,6 +84,8 @@ def full_game(players, rounds, retries, matrix):  # runs whole tourney
             ws.cell(row=j + 3, column=i + 2).value = score1
             table[j][i] = (score2, f'{player1} vs {player2}')
             ws.cell(row=i + 3, column=j + 2).value = score2
+            print(f"Game {player1} vs {player2} completed at {time.time()-starting} with score {score1}:{score2}")
+
 
     scores = list(a / length for a in scores)
     final = []

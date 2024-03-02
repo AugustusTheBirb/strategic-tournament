@@ -28,16 +28,17 @@ def test(player,
 
 def __main__():
     time_start = time.time()
+    rands = ["$" + attribute for attribute in dir(randStrat) if callable(getattr(randStrat, attribute))
+             and attribute.startswith('__') is False]
     players = [attribute for attribute in dir(detStrat) if callable(getattr(detStrat, attribute))
-               and attribute.startswith('__') is False] + ["$"+attribute for attribute in dir(randStrat)
-                                                           if callable(getattr(randStrat, attribute))
-                                                           and attribute.startswith('__') is False]
+               and attribute.startswith('__') is False] + rands
 
     # add the strategies you want to play in the tournament to this list, top one runs every single method
     # players = [strat.allDove, strat.allHawk, strat.rando, strat.copycat, strat.conformist, strat.critic, strat.rebel,
     #                strat.pushover, strat.predator, strat.alzheimer_conformist, strat.believer,
     #                strat.grudge, strat.tit_for_tattat, strat.prod, strat.intrusive_thought
     #                ]
+    print(players)
 
     rounds = 100  # numbers of rounds in one game
     retries = 100  # the retries are so that non-deterministic strategies' payoffs get averaged out
