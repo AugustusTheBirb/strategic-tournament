@@ -45,7 +45,7 @@ class randStrat:
 
     @staticmethod
     def intrusive_thought(mymoves,
-                          opmoves):  # tit-for-tat but if it gets too quiet it will randomly punch for shits and giggles
+                          opmoves):  # tit-for-tat but if it gets too quiet it will randomly punch | meow
         if len(mymoves) == 0:
             return "dove"
         if len(opmoves) > 3:
@@ -73,7 +73,6 @@ class detStrat:
     def conformist(mymoves, opmoves):  # uses the most popular move | Lukas
         if len(mymoves) == 0:
             return "dove"
-
         if hawks_in_last_k_opmoves(opmoves, len(opmoves)) > len(opmoves) / 2:
             return "hawk"
         else:
@@ -92,11 +91,11 @@ class detStrat:
     def rebel(mymoves, opmoves):  # uses the least popular move | Lukas
         if len(mymoves) == 0:
             return "dove"
-
         if hawks_in_last_k_opmoves(opmoves, len(opmoves)) > len(opmoves) / 2:
             return "dove"
         else:
             return "hawk"
+
 
     @staticmethod
     def pushover(mymoves, opmoves):
@@ -118,11 +117,8 @@ class detStrat:
     def alzheimer_conformist(mymoves,
                              opmoves):  # uses the most popular move in the last five moves | Mokslo gildija
         if len(opmoves) > 5:
-            hawk_count = 0
-            for i in range(1, 6):
-                if opmoves[- i] == "hawk":
-                    hawk_count += 1
             if hawks_in_last_k_opmoves(opmoves, 5) >= 3:
+
                 return "hawk"
         return "dove"
 
