@@ -44,11 +44,7 @@ def conformist(mymoves, opmoves):  # uses the most popular move | Lukas
         return "dove"
     hawk_count = 0
 
-    for bird in opmoves:
-        if bird == "hawk":
-            hawk_count += 1
-
-    if hawk_count > len(opmoves) / 2:
+    if hawks_in_last_k_opmoves(opmoves, len(opmoves)) > len(opmoves) / 2:
         return "hawk"
     else:
         return "dove"
@@ -67,12 +63,7 @@ def rebel(mymoves, opmoves):  # uses the least popular move | Lukas
     if len(mymoves) == 0:
         return "dove"
     hawk_count = 0
-
-    for bird in opmoves:
-        if bird == "hawk":
-            hawk_count += 1
-
-    if hawk_count > len(opmoves) / 2:
+    if hawks_in_last_k_opmoves(opmoves, len(opmoves)) > len(opmoves) / 2:
         return "dove"
     else:
         return "hawk"
@@ -116,11 +107,7 @@ def believer(my, op):  # tiki praeitimi, renkasi ta move kuris anksciau geras ja
 
 def alzheimer_conformist(mymoves, opmoves):  # uses the most popular move in the last five moves | Mokslo gildija
     if len(opmoves) > 5:
-        hawk_count = 0
-        for i in range(1, 6):
-            if opmoves[- i] == "hawk":
-                hawk_count += 1
-        if hawk_count >= 3:
+        if hawks_in_last_k_opmoves(opmoves,5) >= 3:
             return "hawk"
     return "dove"
 
