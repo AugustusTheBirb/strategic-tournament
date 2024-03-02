@@ -1,4 +1,5 @@
 from openpyxl import Workbook
+from strategies import detStrat,randStrat
 
 
 def conv(choice):
@@ -20,8 +21,15 @@ def game(rounds, player1, player2, matrix):  # runs one game of two specific pla
     moves2 = []
     scores = [0, 0]
     for i in range(rounds):
-        choice1 = player1(moves1, moves2)
-        choice2 = player2(moves2, moves1)
+        if player1[0] == "$":
+            choice1 = getattr(randStrat, player1[1:])(randStrat, moves1, moves2)
+        else:
+            choice1 = getattr(detStrat, player1)(detStrat, moves1, moves2)
+
+        if player2[0] == "$":
+            choice2 = getattr(randStrat, player2[1:])(randStrat, moves1, moves2)
+        else:
+            choice2 = getattr(detStrat, player2)(detStrat, moves1, moves2)
         scores[0] += matrix[conv(choice2)][conv(choice1)][1]
         scores[1] += matrix[conv(choice2)][conv(choice1)][0]
         moves1.append(choice1)
@@ -39,14 +47,27 @@ def full_game(players, rounds, retries, matrix):  # runs whole tourney
     ws = wb.active
     ws.cell(row=1, column=1).value = "Average"
     for i in range(length):
-        ws.cell(row=2, column=i + 2).value = players[i].__name__
-        ws.cell(row=i + 3, column=1).value = players[i].__name__
+        ws.cell(row=2, column=i + 2).value = players[i]
+        ws.cell(row=i + 3, column=1).value = players[i]
 
     for i in range(length):
         for j in range(i, length):
             s1 = 0
             s2 = 0
-            for times in range(retries):
+            rand = False
+            player1, player2 = players[i],players[j]
+            if player1[0] == "$":
+                rand = True
+                player1 = player1[1:]
+            if player2[0] == "$":
+                rand = True
+                player2 = player2[1:]
+            if rand:
+                for times in range(retries):
+                    s = game(rounds, players[i], players[j], matrix)
+                    s1 += s[0]
+                    s2 += s[1]
+            else:
                 s = game(rounds, players[i], players[j], matrix)
                 s1 += s[0]
                 s2 += s[1]
@@ -55,16 +76,16 @@ def full_game(players, rounds, retries, matrix):  # runs whole tourney
             scores[i] += score1
             if i != j:
                 scores[j] += score2
-            table[i][j] = (score1, f'{players[i].__name__} vs {players[j].__name__}')
+            table[i][j] = (score1, f'{player1} vs {player2}')
             ws.cell(row=j + 3, column=i + 2).value = score1
-            table[j][i] = (score2, f'{players[j].__name__} vs {players[i].__name__}')
+            table[j][i] = (score2, f'{player1} vs {player2}')
             ws.cell(row=i + 3, column=j + 2).value = score2
 
     scores = list(a / length for a in scores)
     final = []
 
     for p in range(length):
-        final.append((players[p].__name__, round(scores[p], 5)))
+        final.append((players[p], round(scores[p], 5)))
     for i in range(length):
         ws.cell(row=1, column=i + 2).value = final[i][1]
 
