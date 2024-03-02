@@ -33,16 +33,22 @@ class randStrat:
         if len(mymoves) < 10:
             return 'dove' if random.random() < 0.5 else 'hawk'
         gains = [0, 0]
+        c1 = 0
+        c2 = 0
+        if "dove" not in mymoves: return "dove"
+        if "hawk" not in mymoves: return "hawk"
         for i in zip(mymoves, opmoves):
             if d[i[0]]:
                 gains[1] += matrix[d[i[0]]][d[i[1]]][0]
+                c1+=1
             else:
                 gains[0] += matrix[d[i[0]]][d[i[1]]][0]
-        if gains[1] > gains[0]:
-            return 'hawk'
-        else:
-            return 'dove'
-
+                c2+=1
+        if(c1!=0 and c2!=0):
+            if gains[1]/c1 > gains[0]/c2:
+                return 'hawk'
+            else:
+                return 'dove'
     @staticmethod
     def intrusive_thought(mymoves,
                           opmoves):  # tit-for-tat but if it gets too quiet it will randomly punch | meow
