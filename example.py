@@ -47,7 +47,7 @@ def __main__():
               [(7, 2), (0, 0)]]
 
     for argument in sys.argv:
-        if str(argument) in ["-v","-verbose"]:
+        if str(argument) in ["-v", "-verbose"]:
             console = True
         else:
             console = False

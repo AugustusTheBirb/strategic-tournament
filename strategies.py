@@ -55,7 +55,7 @@ class randStrat:
         if len(mymoves) == 0:
             return "dove"
         if len(opmoves) > 3:
-            if "hawk" not in opmoves[-2:] and random.random() < 0.1:
+            if "hawk" not in opmoves[-2:] and random.random() < 0.2:
                 return "hawk"
         return opmoves[-1]
 
@@ -102,7 +102,6 @@ class detStrat:
         else:
             return "hawk"
 
-
     @staticmethod
     def pushover(mymoves, opmoves):
         if len(opmoves) < 3:
@@ -124,7 +123,6 @@ class detStrat:
                              opmoves):  # uses the most popular move in the last five moves | Mokslo gildija
         if len(opmoves) > 5:
             if hawks_in_last_k_opmoves(opmoves, 5) >= 3:
-
                 return "hawk"
         return "dove"
 
@@ -143,6 +141,12 @@ class detStrat:
     @staticmethod
     def grudge(mymoves, opmoves):  # plays dove until the opponent plays a hawk then keeps playing hawk | meow
         if "hawk" in opmoves:
+            return "hawk"
+        return "dove"
+
+    @staticmethod
+    def reverse_grudge(mymoves, opmoves):  # plays dove until the opponent plays a dove then keeps playing hawk | meow
+        if "dove" in opmoves[1:]:
             return "hawk"
         return "dove"
 
@@ -166,12 +170,34 @@ class detStrat:
         if "dove" not in opmoves[-2:]:
             return "hawk"
         return "dove"
-    
+
     @staticmethod
-    def smartHawk(mymoves,opmoves): #a smart hawk, if the opponent chooses hawk >7 times in the first 10 moves, he becomes all dove, else stays all hawk | Vasaris
-        if(len(mymoves)<10):return "hawk"
+    def smartHawk(mymoves,
+                  opmoves):  # a smart hawk, if the opponent chooses hawk >7 times in the first 10 moves, he becomes all dove, else stays all hawk | Vasaris
+        if len(mymoves) < 10: return "hawk"
         count = 0
         for i in range(10):
-            if(opmoves[i]=="hawk"): count+=1
-        if(count>7):return "dove"
-        if(count<=7):return "hawk"
+            if opmoves[i] == "hawk":
+                count += 1
+        if count > 7:
+            return "dove"
+        return "hawk"
+
+    @staticmethod
+    def dumbBird(mymoves,
+                  opmoves):  # a dumb bird, if the opponent chooses hawk >7 times in the first 10 moves, he becomes all hawk, else stays all dove | Vasaris
+        if len(mymoves) < 10: return "hawk"
+        count = 0
+        for i in range(10):
+            if opmoves[i] == "hawk":
+                count += 1
+        if count > 7:
+            return "hawk"
+        return "dove"
+
+
+    @staticmethod
+    def alternate(mymove, opmove):
+        if len(mymove) % 2 == 0:
+            return "hawk"
+        return "dove"
