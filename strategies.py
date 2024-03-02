@@ -27,13 +27,13 @@ class randStrat:
             return "hawk"
 
     @staticmethod
-    def believer(my, op):  # tiki praeitimi, renkasi ta move kuris anksciau geras jam buvo | Tomas
+    def believer(mymoves, opmoves):  # tiki praeitimi, renkasi ta move kuris anksciau geras jam buvo | Tomas
         matrix = [[(5, 5), (2, 7)], [(7, 2), (0, 0)]]
         d = {'dove': 0, 'hawk': 1}
-        if len(my) < 10:
+        if len(mymoves) < 10:
             return 'dove' if random.random() < 0.5 else 'hawk'
         gains = [0, 0]
-        for i in zip(my, op):
+        for i in zip(mymoves, opmoves):
             if d[i[0]]:
                 gains[1] += matrix[d[i[0]]][d[i[1]]][0]
             else:
@@ -45,7 +45,7 @@ class randStrat:
 
     @staticmethod
     def intrusive_thought(mymoves,
-                          opmoves):  # tit-for-tat but if it gets too quiet it will randomly punch for shits and giggles
+                          opmoves):  # tit-for-tat but if it gets too quiet it will randomly punch | meow
         if len(mymoves) == 0:
             return "dove"
         if len(opmoves) > 3:
@@ -73,13 +73,7 @@ class detStrat:
     def conformist(mymoves, opmoves):  # uses the most popular move | Lukas
         if len(mymoves) == 0:
             return "dove"
-        hawk_count = 0
-
-        for bird in opmoves:
-            if bird == "hawk":
-                hawk_count += 1
-
-        if hawk_count > len(opmoves) / 2:
+        if hawks_in_last_k_opmoves(opmoves, len(opmoves)) > len(opmoves) / 2:
             return "hawk"
         else:
             return "dove"
@@ -97,16 +91,11 @@ class detStrat:
     def rebel(mymoves, opmoves):  # uses the least popular move | Lukas
         if len(mymoves) == 0:
             return "dove"
-        hawk_count = 0
-
-        for bird in opmoves:
-            if bird == "hawk":
-                hawk_count += 1
-
-        if hawk_count > len(opmoves) / 2:
+        if hawks_in_last_k_opmoves(opmoves, len(opmoves)) > len(opmoves) / 2:
             return "dove"
         else:
             return "hawk"
+
 
     @staticmethod
     def pushover(mymoves, opmoves):
@@ -128,11 +117,8 @@ class detStrat:
     def alzheimer_conformist(mymoves,
                              opmoves):  # uses the most popular move in the last five moves | Mokslo gildija
         if len(opmoves) > 5:
-            hawk_count = 0
-            for i in range(1, 6):
-                if opmoves[- i] == "hawk":
-                    hawk_count += 1
-            if hawk_count >= 3:
+            if hawks_in_last_k_opmoves(opmoves, 5) >= 3:
+
                 return "hawk"
         return "dove"
 
