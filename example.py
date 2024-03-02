@@ -1,3 +1,4 @@
+import sys
 import game
 from strategies import detStrat, randStrat
 import time
@@ -45,8 +46,15 @@ def __main__():
     matrix = [[(5, 5), (2, 7)],
               [(7, 2), (0, 0)]]
 
-    game.full_game(players, rounds, retries, matrix)
-    print(time.time() - time_start, "seconds")
+    for argument in sys.argv:
+        if str(argument) in ["-v","-verbose"]:
+            console = True
+        else:
+            console = False
+
+    game.full_game(players, rounds, retries, matrix, console)
+    if console:
+        print(time.time() - time_start, "seconds")
 
 
 __main__()
