@@ -160,3 +160,12 @@ class detStrat:
         if "dove" not in opmoves[-2:]:
             return "hawk"
         return "dove"
+    
+    @staticmethod
+    def smartHawk(mymoves,opmoves): #a smart hawk, if the opponent chooses hawk >7 times in the first 10 moves, he becomes all dove, else stays all hawke
+        if(len(mymoves)<10):return "hawk"
+        count = 0
+        for i in range(10):
+            if(opmoves[i]=="hawk"): count+=1
+        if(count>7):return "dove"
+        if(count<=7):return "hawk"
