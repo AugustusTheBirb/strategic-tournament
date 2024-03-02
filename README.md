@@ -14,7 +14,7 @@ The game setup here is Hawk-Dove, in it the players receive payoffs according to
 
 Where the number pairs show the payoffs for each action pair (left player, top player) - the amount of "coins" your strategy gains for that outcome.
 
-The games are simultaneous - both strategies make the choice between the two actions at the same time>T, with their only knowledge being their previous history with eachother.
+The games are simultaneous - both strategies make the choice between the two actions at the same time>T, with their only knowledge being their previous history with each other.
 
 The idea behind this game is that two animals are competing over some shared resource, and they have two options - fight or share (act like a hawk or like a dove).
 If they both chose to fight, the cost of the resulting fight is greater than the value of the resource, if one fights and one shares, the one who shares will end up getting a smaller share of the resource, a lower payoff.
@@ -29,9 +29,9 @@ Its easier to understand the game from this matrix (which is equivalent in prefe
 
 ## THE TOURNAMENT
 
-I have made a little tournament program for this game, which you can see at the very bottom in its entirety. The tournament will work like this: it will consist of as many players as you create each playing each other for 100+-10 rounds (this will be a constant value throughout the tournament), and in each of those ~100 rounds they will earn "coins" according to the payoff matrix at the top. Each players final score will be the sum of all of their scores (including against themselves!) /number of players - so their average score.
+I have made a little tournament program for this game, which you can see at the very bottom in its entirety. The tournament will work like this: it will consist of as many players as you create each playing each other for 100+-10 rounds (this will be a constant value throughout the tournament), and in each of those ~100 rounds they will earn "coins" according to the payoff matrix at the top. Each player's final score will be the sum of all of their scores (including against themselves!) /number of players - so their average score.
 
-This does mean that there is no objectively best strategy, because your payoff depends on the strategies you're up against. (probably)
+This does mean that there is no "objectively best" strategy, because your payoff depends on the strategies you're up against. (probably)
 
 ## STRATEGIES
 
@@ -86,7 +86,7 @@ On the first move both are empty.
 
 ## BASIC USAGE
 
-To initaite the tournament run the example.py. The python script will generate an excel file called stategies.py. In this file you will be able to find the average scores of all the strategies and scores of all the strategy match ups.
+To initiate the tournament run the example.py. The python script will generate an Excel file called `results.xlsx`. In this file you will be able to find the average scores of all the strategies and scores of all the strategy match ups.
 
 example.py accepts these arguments:
 
