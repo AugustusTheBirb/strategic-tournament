@@ -127,18 +127,6 @@ class detStrat:
         return "dove"
 
     @staticmethod
-    def sore_loser(mymoves, opmoves):  # if it has fewer points its opponent it goes hawk, else dove | Mykolas
-        myscore = 0
-        opscore = 0
-        for i in range(len(mymoves)):
-            myscore += points(mymoves[i], opmoves[i])
-            opscore += points(opmoves[i], mymoves[i])
-        if opscore > myscore:
-            return "hawk"
-        else:
-            return "dove"
-
-    @staticmethod
     def grudge(mymoves, opmoves):  # plays dove until the opponent plays a hawk then keeps playing hawk | meow
         if "hawk" in opmoves:
             return "hawk"
