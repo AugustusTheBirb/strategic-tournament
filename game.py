@@ -1,6 +1,7 @@
+import time, math
 from openpyxl import Workbook
-from strategies import detStrat,randStrat
-import time
+from openpyxl.styles import PatternFill
+from strategies import detStrat, randStrat
 
 
 def conv(choice):
@@ -84,8 +85,28 @@ def full_game(players, rounds, retries, matrix, console):  # runs whole tourney
             scores[i] += score1
             if i != j:
                 scores[j] += score2
+            
+            red   = str(hex(int(math.sqrt(1-(score1/7)**2)*255)))[2:]
+            green = str(hex(int(math.sqrt(1-(1-(score1/7))**2)*255)))[2:]
+            if(len(red) == 1):
+                red = "0"+red
+            if(len(green) == 1):
+                green = "0" + green
+
             ws.cell(row=j + 3, column=i + 2).value = score1
-            ws.cell(row=i + 3, column=j + 2).value = score2
+            ws.cell(row=j + 3, column=i + 2).fill = PatternFill(start_color='FF'+red+green+'5b',
+                    fill_type='solid')
+
+            red   = str(hex(int(math.sqrt(1-(score2/7)**2)*255)))[2:]
+            green = str(hex(int(math.sqrt(1-(1-(score2/7))**2)*255)))[2:]
+            if(len(red) == 1):
+                red = "0" + red
+            if(len(green) == 1):
+                green = "0" + green
+            
+            ws.cell(row=i + 3, column=j + 2).value = score2                
+            ws.cell(row=i + 3, column=j + 2).fill = PatternFill(start_color='FF'+red+green+'5b',
+                    fill_type='solid')
             # print(f"Game {player1} vs {player2} completed at {time.time()-starting} with score {score1}:{score2}")
 
 
