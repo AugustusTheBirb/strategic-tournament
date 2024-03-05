@@ -30,8 +30,9 @@ class randStrat:
     def believer(mymoves, opmoves):  # tiki praeitimi, renkasi ta move kuris anksciau geras jam buvo | Tomas
         matrix = [[(5, 5), (2, 7)], [(7, 2), (0, 0)]]
         d = {'dove': 0, 'hawk': 1}
+        t = ["dove","dove","hawk","dove","hawk","hawk","hawk","dove","dove","hawk"]
         if len(mymoves) < 10:
-            return 'dove' if random.random() < 0.5 else 'hawk'
+            return t[len(mymoves)]
         gains = [0, 0]
         c1 = 0
         c2 = 0
